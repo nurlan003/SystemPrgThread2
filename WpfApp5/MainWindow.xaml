@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfApp5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBlock  Margin="89,61,630,332" Text="From" FontSize="30"></TextBlock>
+        <TextBlock Margin="102,136,644,257" Text="To" FontSize="30"></TextBlock>
+        <TextBox x:Name="fromtxt" Margin="189,61,280,332"></TextBox>
+        <TextBox x:Name="totxt" Margin="189,136,280,257"></TextBox>
+        <Button x:Name="open1btn" Margin="582,65,117,332" Content="Open"></Button>
+        <Button x:Name="open2btn"  Margin="582,142,117,257" Content="Open"></Button>
+        <ProgressBar Name="loadingProgressBar" Minimum="0" Maximum="100" Value="0" Margin="129,227,184,173" />
+        <Button x:Name="strbtn" Margin="516,319,184,80" Content="Start" Click="strbtn_Click"></Button>
+        <Button x:Name="rsmbtn"  Margin="339,319,359,80" Content="Resume" Click="rsmbtn_Click"></Button>
+        <Button  x:Name="spnbtn" Margin="158,319,532,80" Content="Suspend"></Button>
+    </Grid>
+</Window>

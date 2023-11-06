@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -27,17 +29,18 @@ namespace WpfApp5
             ;
         }
         Thread thread1 = new Thread(()=> { });
+        string b = null;
         private void strbtn_Click(object sender, RoutedEventArgs e)
         {
-            string fromText = fromtxt.Text;
-            loadingProgressBar.Maximum = fromText.Length;
+            
+            loadingProgressBar.Maximum = b.Length;
             thread1 = new Thread(() =>
             {
-                for (int i = 0; i < fromText.Length; i++)
+                for (int i = 0; i < b.Length; i++)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        totxt.Text += fromText[i];
+                        totxt.Text += b[i];
                     loadingProgressBar.Value += 1;
                     });
                     Thread.Sleep(1000);
@@ -55,10 +58,31 @@ namespace WpfApp5
 
         private void spnbtn_Click(object sender, RoutedEventArgs e)
         {
-         
             thread1.Suspend();
 
 
+        }
+
+        private void open1btn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Metin Dosyaları (*.txt)|*.txt";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string dosyaYolu = openFileDialog.FileName;
+
+                try
+                {
+                    string metin = File.ReadAllText(dosyaYolu);
+
+                   b = metin;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Dosya okuma hatası: " + ex.Message);
+                }
+            }
         }
     }
 }

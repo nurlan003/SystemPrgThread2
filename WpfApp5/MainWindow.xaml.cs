@@ -26,12 +26,12 @@ namespace WpfApp5
             InitializeComponent();
             ;
         }
-
+        Thread thread1 = new Thread(()=> { });
         private void strbtn_Click(object sender, RoutedEventArgs e)
         {
             string fromText = fromtxt.Text;
             loadingProgressBar.Maximum = fromText.Length;
-            Thread thread1 = new Thread(() =>
+            thread1 = new Thread(() =>
             {
                 for (int i = 0; i < fromText.Length; i++)
                 {
@@ -48,7 +48,16 @@ namespace WpfApp5
 
         private void rsmbtn_Click(object sender, RoutedEventArgs e)
         {
-            loadingProgressBar.Value =loadingProgressBar.Value;
+            thread1.Resume();
+
+
+        }
+
+        private void spnbtn_Click(object sender, RoutedEventArgs e)
+        {
+         
+            thread1.Suspend();
+
 
         }
     }

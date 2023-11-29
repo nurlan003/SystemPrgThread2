@@ -28,23 +28,38 @@ namespace WpfApp5
             InitializeComponent();
             ;
         }
-        Thread thread1 = new Thread(()=> { });
-        string b = null;
+        Thread thread1 = new Thread(() => { });
+
+        void TextTransfer()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                string ilkDosyaYolu = fromtxt.Text;
+                string ikinciDosyaYolu = totxt.Text;
+                using (StreamReader sr = new StreamReader(ilkDosyaYolu))
+                {
+                    using (StreamWriter sw = new StreamWriter(ikinciDosyaYolu))
+                    {
+                        int charr;
+                        while ((charr = sr.Read()) != -1)
+                        {
+                            sw.Write((char)charr);
+                            MessageBox.Show($"{charr}");
+                        }
+                    }
+                }
+            });
+            Thread.Sleep(1000);
+
+
+        }
         private void strbtn_Click(object sender, RoutedEventArgs e)
         {
-            
-            loadingProgressBar.Maximum = b.Length;
+
+
             thread1 = new Thread(() =>
             {
-                for (int i = 0; i < b.Length; i++)
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        totxt.Text += b[i];
-                    loadingProgressBar.Value += 1;
-                    });
-                    Thread.Sleep(1000);
-                }
+                TextTransfer();
             });
             thread1.Start();
         }
@@ -65,23 +80,39 @@ namespace WpfApp5
 
         private void open1btn_Click(object sender, RoutedEventArgs e)
         {
+
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Metin Dosyaları (*.txt)|*.txt";
+            openFileDialog.Filter = "Text(*.txt)|*.txt";
 
             if (openFileDialog.ShowDialog() == true)
             {
-                string dosyaYolu = openFileDialog.FileName;
+                fromtxt.Text = openFileDialog.FileName;
+            }
 
-                try
-                {
-                    string metin = File.ReadAllText(dosyaYolu);
 
-                   b = metin;
-                }
-                catch (Exception ex)
+            string FilePathforCount = fromtxt.Text;
+            using (StreamReader sr = new StreamReader(FilePathforCount))
+            {
+                int charcount = 0;
+
+                while (sr.Read() != -1)
                 {
-                    MessageBox.Show("Dosya okuma hatası: " + ex.Message);
+                    charcount++;
                 }
+                loadingProgressBar.Maximum = charcount;
+            }
+        }
+
+        private void open2btn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text  (*.txt)|*.txt";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                totxt.Text = openFileDialog.FileName;
+
             }
         }
     }

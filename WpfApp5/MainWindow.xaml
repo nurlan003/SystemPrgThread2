@@ -12,7 +12,7 @@
         <TextBox x:Name="fromtxt" Margin="189,61,280,332"></TextBox>
         <TextBox x:Name="totxt" Margin="189,136,280,257"></TextBox>
         <Button x:Name="open1btn" Margin="582,65,117,332" Content="Open" Click="open1btn_Click"></Button>
-        <Button x:Name="open2btn"  Margin="582,142,117,257" Content="Open"></Button>
+        <Button x:Name="open2btn"  Margin="582,142,117,257" Content="Open" Click="open2btn_Click"></Button>
         <ProgressBar Name="loadingProgressBar" Minimum="0" Maximum="100" Value="0" Margin="129,227,184,173" />
         <Button x:Name="strbtn" Margin="516,319,184,80" Content="Start" Click="strbtn_Click"></Button>
         <Button x:Name="spnbtn"  Margin="339,319,359,80" Content="Suspend" Click="spnbtn_Click"></Button>
